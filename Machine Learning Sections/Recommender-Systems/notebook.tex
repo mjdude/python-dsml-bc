@@ -1,0 +1,846 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Advanced Recommender Systems with Python}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{advanced-recommender-systems-with-python}{%
+\section{Advanced Recommender Systems with
+Python}\label{advanced-recommender-systems-with-python}}
+
+Welcome to the code notebook for creating Advanced Recommender Systems
+with Python. This is an optional lecture notebook for you to check out.
+Currently there is no video for this lecture because of the level of
+mathematics used and the heavy use of SciPy here.
+
+Recommendation Systems usually rely on larger data sets and specifically
+need to be organized in a particular fashion. Because of this, we won't
+have a project to go along with this topic, instead we will have a more
+intensive walkthrough process on creating a recommendation system with
+Python with the same Movie Lens Data Set.
+
+\emph{Note: The actual mathematics behind recommender systems is pretty
+heavy in Linear Algebra.} \_\_\_
+
+    \hypertarget{methods-used}{%
+\subsection{Methods Used}\label{methods-used}}
+
+Two most common types of recommender systems are \textbf{Content-Based}
+and \textbf{Collaborative Filtering (CF)}.
+
+\begin{itemize}
+\tightlist
+\item
+  Collaborative filtering produces recommendations based on the
+  knowledge of users' attitude to items, that is it uses the ``wisdom of
+  the crowd'' to recommend items.
+\item
+  Content-based recommender systems focus on the attributes of the items
+  and give you recommendations based on the similarity between them.
+\end{itemize}
+
+\hypertarget{collaborative-filtering}{%
+\subsection{Collaborative Filtering}\label{collaborative-filtering}}
+
+In general, Collaborative filtering (CF) is more commonly used than
+content-based systems because it usually gives better results and is
+relatively easy to understand (from an overall implementation
+perspective). The algorithm has the ability to do feature learning on
+its own, which means that it can start to learn for itself what features
+to use.
+
+CF can be divided into \textbf{Memory-Based Collaborative Filtering} and
+\textbf{Model-Based Collaborative filtering}.
+
+In this tutorial, we will implement Model-Based CF by using singular
+value decomposition (SVD) and Memory-Based CF by computing cosine
+similarity.
+
+\hypertarget{the-data}{%
+\subsection{The Data}\label{the-data}}
+
+We will use famous MovieLens dataset, which is one of the most common
+datasets used when implementing and testing recommender engines. It
+contains 100k movie ratings from 943 users and a selection of 1682
+movies.
+
+You can download the dataset
+\href{http://files.grouplens.org/datasets/movielens/ml-100k.zip}{here}
+or just use the u.data file that is already included in this folder.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{getting-started}{%
+\subsection{Getting Started}\label{getting-started}}
+
+Let's import some libraries we will need:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    We can then read in the \textbf{u.data} file, which contains the full
+dataset. You can read a brief description of the dataset
+\href{http://files.grouplens.org/datasets/movielens/ml-100k-README.txt}{here}.
+
+Note how we specify the separator argument for a Tab separated file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{column\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{column\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's take a quick look at the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    user\_id  item\_id  rating  timestamp
+        0        0       50       5  881250949
+        1        0      172       5  881250949
+        2        0      133       1  881250949
+        3      196      242       3  881250949
+        4      186      302       3  891717742
+\end{Verbatim}
+            
+    Note how we only have the item\_id, not the movie name. We can use the
+Movie\_ID\_Titles csv file to grab the movie names and merge it with
+this dataframe:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{movie\PYZus{}titles} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Movie\PYZus{}Id\PYZus{}Titles}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{movie\PYZus{}titles}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    item\_id              title
+         0        1   Toy Story (1995)
+         1        2   GoldenEye (1995)
+         2        3  Four Rooms (1995)
+         3        4  Get Shorty (1995)
+         4        5     Copycat (1995)
+\end{Verbatim}
+            
+    Then merge the dataframes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{movie\PYZus{}titles}\PY{p}{,}\PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}    user\_id  item\_id  rating  timestamp             title
+         0        0       50       5  881250949  Star Wars (1977)
+         1      290       50       5  880473582  Star Wars (1977)
+         2       79       50       4  891271545  Star Wars (1977)
+         3        2       50       5  888552084  Star Wars (1977)
+         4        8       50       5  879362124  Star Wars (1977)
+\end{Verbatim}
+            
+    Now let's take a quick look at the number of unique users and movies.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{n\PYZus{}users} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+         \PY{n}{n\PYZus{}items} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{item\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num. of Users: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{n\PYZus{}users}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num of Movies: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n\PYZus{}items}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Num. of Users: 944
+Num of Movies: 1682
+
+    \end{Verbatim}
+
+    \hypertarget{train-test-split}{%
+\subsection{Train Test Split}\label{train-test-split}}
+
+Recommendation Systems by their very nature are very difficult to
+evaluate, but we will still show you how to evaluate them in this
+tutorial. In order to do this, we'll split our data into two sets.
+However, we won't do our classic X\_train,X\_test,y\_train,y\_test
+split. Instead we can actually just segement the data into two sets of
+data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{train\PYZus{}data}\PY{p}{,} \PY{n}{test\PYZus{}data} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{memory-based-collaborative-filtering}{%
+\subsection{Memory-Based Collaborative
+Filtering}\label{memory-based-collaborative-filtering}}
+
+Memory-Based Collaborative Filtering approaches can be divided into two
+main sections: \textbf{user-item filtering} and \textbf{item-item
+filtering}.
+
+A \emph{user-item filtering} will take a particular user, find users
+that are similar to that user based on similarity of ratings, and
+recommend items that those similar users liked.
+
+In contrast, \emph{item-item filtering} will take an item, find users
+who liked that item, and find other items that those users or similar
+users also liked. It takes items and outputs other items as
+recommendations.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Item-Item Collaborative Filtering}: ``Users who liked this item
+  also liked \ldots{}''
+\item
+  \emph{User-Item Collaborative Filtering}: ``Users who are similar to
+  you also liked \ldots{}''
+\end{itemize}
+
+    In both cases, you create a user-item matrix which built from the entire
+dataset.
+
+Since we have split the data into testing and training we will need to
+create two \texttt{{[}943\ x\ 1682{]}} matrices (all users by all
+movies).
+
+The training matrix contains 75\% of the ratings and the testing matrix
+contains 25\% of the ratings.
+
+    Example of user-item matrix: 
+
+    After you have built the user-item matrix you calculate the similarity
+and create a similarity matrix.
+
+The similarity values between items in \emph{Item-Item Collaborative
+Filtering} are measured by observing all the users who have rated both
+items.
+
+    For \emph{User-Item Collaborative Filtering} the similarity values
+between users are measured by observing all the items that are rated by
+both users.
+
+    A distance metric commonly used in recommender systems is \emph{cosine
+similarity}, where the ratings are seen as vectors in
+\texttt{n}-dimensional space and the similarity is calculated based on
+the angle between these vectors. Cosine similiarity for users \emph{a}
+and \emph{m} can be calculated using the formula below, where you take
+dot product of the user vector \emph{\(u_k\)} and the user vector
+\emph{\(u_a\)} and divide it by multiplication of the Euclidean lengths
+of the vectors.
+
+To calculate similarity between items \emph{m} and \emph{b} you use the
+formula:
+
+Your first step will be to create the user-item matrix. Since you have
+both testing and training data you need to create two matrices.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Create two user\PYZhy{}item matrices, one for training and another for testing}
+         \PY{n}{train\PYZus{}data\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}users}\PY{p}{,} \PY{n}{n\PYZus{}items}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{train\PYZus{}data}\PY{o}{.}\PY{n}{itertuples}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{train\PYZus{}data\PYZus{}matrix}\PY{p}{[}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}  
+         
+         \PY{n}{test\PYZus{}data\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}users}\PY{p}{,} \PY{n}{n\PYZus{}items}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{test\PYZus{}data}\PY{o}{.}\PY{n}{itertuples}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{test\PYZus{}data\PYZus{}matrix}\PY{p}{[}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+\end{Verbatim}
+
+
+    You can use the
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.pairwise_distances.html}{pairwise\_distances}
+function from sklearn to calculate the cosine similarity. Note, the
+output will range from 0 to 1 since the ratings are all positive.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}\PY{n+nn}{.}\PY{n+nn}{pairwise} \PY{k}{import} \PY{n}{pairwise\PYZus{}distances}
+         \PY{n}{user\PYZus{}similarity} \PY{o}{=} \PY{n}{pairwise\PYZus{}distances}\PY{p}{(}\PY{n}{train\PYZus{}data\PYZus{}matrix}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cosine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{item\PYZus{}similarity} \PY{o}{=} \PY{n}{pairwise\PYZus{}distances}\PY{p}{(}\PY{n}{train\PYZus{}data\PYZus{}matrix}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cosine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next step is to make predictions. You have already created similarity
+matrices: \texttt{user\_similarity} and \texttt{item\_similarity} and
+therefore you can make a prediction by applying following formula for
+user-based CF:
+
+You can look at the similarity between users \emph{k} and \emph{a} as
+weights that are multiplied by the ratings of a similar user \emph{a}
+(corrected for the average rating of that user). You will need to
+normalize it so that the ratings stay between 1 and 5 and, as a final
+step, sum the average ratings for the user that you are trying to
+predict.
+
+The idea here is that some users may tend always to give high or low
+ratings to all movies. The relative difference in the ratings that these
+users give is more important than the absolute values. To give an
+example: suppose, user \emph{k} gives 4 stars to his favourite movies
+and 3 stars to all other good movies. Suppose now that another user
+\emph{t} rates movies that he/she likes with 5 stars, and the movies
+he/she fell asleep over with 3 stars. These two users could have a very
+similar taste but treat the rating system differently.
+
+When making a prediction for item-based CF you don't need to correct for
+users average rating since query user itself is used to do predictions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{ratings}\PY{p}{,} \PY{n}{similarity}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{mean\PYZus{}user\PYZus{}rating} \PY{o}{=} \PY{n}{ratings}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}You use np.newaxis so that mean\PYZus{}user\PYZus{}rating has same format as ratings}
+                 \PY{n}{ratings\PYZus{}diff} \PY{o}{=} \PY{p}{(}\PY{n}{ratings} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}user\PYZus{}rating}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{)} 
+                 \PY{n}{pred} \PY{o}{=} \PY{n}{mean\PYZus{}user\PYZus{}rating}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]} \PY{o}{+} \PY{n}{similarity}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{ratings\PYZus{}diff}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{similarity}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+             \PY{k}{elif} \PY{n+nb}{type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{pred} \PY{o}{=} \PY{n}{ratings}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{similarity}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{similarity}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}     
+             \PY{k}{return} \PY{n}{pred}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{item\PYZus{}prediction} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}data\PYZus{}matrix}\PY{p}{,} \PY{n}{item\PYZus{}similarity}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{user\PYZus{}prediction} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}data\PYZus{}matrix}\PY{p}{,} \PY{n}{user\PYZus{}similarity}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{evaluation}{%
+\subsubsection{Evaluation}\label{evaluation}}
+
+There are many evaluation metrics but one of the most popular metric
+used to evaluate accuracy of predicted ratings is \emph{Root Mean
+Squared Error (RMSE)}.
+
+You can use the
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html}{mean\_square\_error}
+(MSE) function from \texttt{sklearn}, where the RMSE is just the square
+root of MSE. To read more about different evaluation metrics you can
+take a look at
+\href{http://research.microsoft.com/pubs/115396/EvaluationMetrics.TR.pdf}{this
+article}.
+
+    Since you only want to consider predicted ratings that are in the test
+dataset, you filter out all other elements in the prediction matrix with
+\texttt{prediction{[}ground\_truth.nonzero(){]}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+         \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}
+         \PY{k}{def} \PY{n+nf}{rmse}\PY{p}{(}\PY{n}{prediction}\PY{p}{,} \PY{n}{ground\PYZus{}truth}\PY{p}{)}\PY{p}{:}
+             \PY{n}{prediction} \PY{o}{=} \PY{n}{prediction}\PY{p}{[}\PY{n}{ground\PYZus{}truth}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} 
+             \PY{n}{ground\PYZus{}truth} \PY{o}{=} \PY{n}{ground\PYZus{}truth}\PY{p}{[}\PY{n}{ground\PYZus{}truth}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{prediction}\PY{p}{,} \PY{n}{ground\PYZus{}truth}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{User\PYZhy{}based CF RMSE: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{rmse}\PY{p}{(}\PY{n}{user\PYZus{}prediction}\PY{p}{,} \PY{n}{test\PYZus{}data\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item\PYZhy{}based CF RMSE: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{rmse}\PY{p}{(}\PY{n}{item\PYZus{}prediction}\PY{p}{,} \PY{n}{test\PYZus{}data\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+User-based CF RMSE: 3.135451660158989
+Item-based CF RMSE: 3.4593766647252515
+
+    \end{Verbatim}
+
+    Memory-based algorithms are easy to implement and produce reasonable
+prediction quality. The drawback of memory-based CF is that it doesn't
+scale to real-world scenarios and doesn't address the well-known
+cold-start problem, that is when new user or new item enters the system.
+Model-based CF methods are scalable and can deal with higher sparsity
+level than memory-based models, but also suffer when new users or items
+that don't have any ratings enter the system. I would like to thank
+Ethan Rosenthal for his
+\href{http://blog.ethanrosenthal.com/2015/11/02/intro-to-collaborative-filtering/}{post}
+about Memory-Based Collaborative Filtering.
+
+    \hypertarget{model-based-collaborative-filtering}{%
+\section{Model-based Collaborative
+Filtering}\label{model-based-collaborative-filtering}}
+
+Model-based Collaborative Filtering is based on \textbf{matrix
+factorization (MF)} which has received greater exposure, mainly as an
+unsupervised learning method for latent variable decomposition and
+dimensionality reduction. Matrix factorization is widely used for
+recommender systems where it can deal better with scalability and
+sparsity than Memory-based CF. The goal of MF is to learn the latent
+preferences of users and the latent attributes of items from known
+ratings (learn features that describe the characteristics of ratings) to
+then predict the unknown ratings through the dot product of the latent
+features of users and items. When you have a very sparse matrix, with a
+lot of dimensions, by doing matrix factorization you can restructure the
+user-item matrix into low-rank structure, and you can represent the
+matrix by the multiplication of two low-rank matrices, where the rows
+contain the latent vector. You fit this matrix to approximate your
+original matrix, as closely as possible, by multiplying the low-rank
+matrices together, which fills in the entries missing in the original
+matrix.
+
+Let's calculate the sparsity level of MovieLens dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{sparsity}\PY{o}{=}\PY{n+nb}{round}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{n\PYZus{}users}\PY{o}{*}\PY{n}{n\PYZus{}items}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sparsity level of MovieLens100K is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+}  \PY{n+nb}{str}\PY{p}{(}\PY{n}{sparsity}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The sparsity level of MovieLens100K is 93.7\%
+
+    \end{Verbatim}
+
+    To give an example of the learned latent preferences of the users and
+items: let's say for the MovieLens dataset you have the following
+information: \emph{(user id, age, location, gender, movie id, director,
+actor, language, year, rating)}. By applying matrix factorization the
+model learns that important user features are \emph{age group (under 10,
+10-18, 18-30, 30-90)}, \emph{location} and \emph{gender}, and for movie
+features it learns that \emph{decade}, \emph{director} and \emph{actor}
+are most important. Now if you look into the information you have
+stored, there is no such feature as the \emph{decade}, but the model can
+learn on its own. The important aspect is that the CF model only uses
+data (user\_id, movie\_id, rating) to learn the latent features. If
+there is little data available model-based CF model will predict poorly,
+since it will be more difficult to learn the latent features.
+
+Models that use both ratings and content features are called
+\textbf{Hybrid Recommender Systems} where both Collaborative Filtering
+and Content-based Models are combined. Hybrid recommender systems
+usually show higher accuracy than Collaborative Filtering or
+Content-based Models on their own: they are capable to address the
+cold-start problem better since if you don't have any ratings for a user
+or an item you could use the metadata from the user or item to make a
+prediction.
+
+    \hypertarget{svd}{%
+\subsubsection{SVD}\label{svd}}
+
+A well-known matrix factorization method is \textbf{Singular value
+decomposition (SVD)}. Collaborative Filtering can be formulated by
+approximating a matrix \texttt{X} by using singular value decomposition.
+The winning team at the Netflix Prize competition used SVD matrix
+factorization models to produce product recommendations, for more
+information I recommend to read articles:
+\href{http://techblog.netflix.com/2012/04/netflix-recommendations-beyond-5-stars.html}{Netflix
+Recommendations: Beyond the 5 stars} and
+\href{http://buzzard.ups.edu/courses/2014spring/420projects/math420-UPS-spring-2014-gower-netflix-SVD.pdf}{Netflix
+Prize and SVD}. The general equation can be expressed as follows:
+
+Given \texttt{m\ x\ n} matrix \texttt{X}: * \emph{\texttt{U}} is an
+\emph{\texttt{(m\ x\ r)}} orthogonal matrix * \emph{\texttt{S}} is an
+\emph{\texttt{(r\ x\ r)}} diagonal matrix with non-negative real numbers
+on the diagonal * \emph{V\^{}T} is an \emph{\texttt{(r\ x\ n)}}
+orthogonal matrix
+
+Elements on the diagnoal in \texttt{S} are known as \emph{singular
+values of \texttt{X}}.
+
+Matrix \emph{\texttt{X}} can be factorized to \emph{\texttt{U}},
+\emph{\texttt{S}} and \emph{\texttt{V}}. The \emph{\texttt{U}} matrix
+represents the feature vectors corresponding to the users in the hidden
+feature space and the \emph{\texttt{V}} matrix represents the feature
+vectors corresponding to the items in the hidden feature space.
+
+Now you can make a prediction by taking dot product of
+\emph{\texttt{U}}, \emph{\texttt{S}} and \emph{\texttt{V\^{}T}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse} \PY{k}{as} \PY{n+nn}{sp}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{svds}
+         
+         \PY{c+c1}{\PYZsh{}get SVD components from train matrix. Choose k.}
+         \PY{n}{u}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{vt} \PY{o}{=} \PY{n}{svds}\PY{p}{(}\PY{n}{train\PYZus{}data\PYZus{}matrix}\PY{p}{,} \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{s\PYZus{}diag\PYZus{}matrix}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+         \PY{n}{X\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{s\PYZus{}diag\PYZus{}matrix}\PY{p}{)}\PY{p}{,} \PY{n}{vt}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{User\PYZhy{}based CF MSE: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{rmse}\PY{p}{(}\PY{n}{X\PYZus{}pred}\PY{p}{,} \PY{n}{test\PYZus{}data\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+User-based CF MSE: 2.727093975231784
+
+    \end{Verbatim}
+
+    Carelessly addressing only the relatively few known entries is highly
+prone to overfitting. SVD can be very slow and computationally
+expensive. More recent work minimizes the squared error by applying
+alternating least square or stochastic gradient descent and uses
+regularization terms to prevent overfitting. Alternating least square
+and stochastic gradient descent methods for CF will be covered in the
+next tutorials.
+
+    Review:
+
+\begin{itemize}
+\tightlist
+\item
+  We have covered how to implement simple \textbf{Collaborative
+  Filtering} methods, both memory-based CF and model-based CF.
+\item
+  \textbf{Memory-based models} are based on similarity between items or
+  users, where we use cosine-similarity.
+\item
+  \textbf{Model-based CF} is based on matrix factorization where we use
+  SVD to factorize the matrix.
+\item
+  Building recommender systems that perform well in cold-start scenarios
+  (where little data is available on new users and items) remains a
+  challenge. The standard collaborative filtering method performs poorly
+  is such settings.
+\end{itemize}
+
+    \hypertarget{looking-for-more}{%
+\subsection{Looking for more?}\label{looking-for-more}}
+
+If you want to tackle your own recommendation system analysis, check out
+these data sets. Note: The files are quite large in most cases, not all
+the links may stay up to host the data, but the majority of them still
+work. Or just Google for your own data set!
+
+\textbf{Movies Recommendation:}
+
+MovieLens - Movie Recommendation Data Sets
+http://www.grouplens.org/node/73
+
+Yahoo! - Movie, Music, and Images Ratings Data Sets
+http://webscope.sandbox.yahoo.com/catalog.php?datatype=r
+
+Jester - Movie Ratings Data Sets (Collaborative Filtering Dataset)
+http://www.ieor.berkeley.edu/\textasciitilde{}goldberg/jester-data/
+
+Cornell University - Movie-review data for use in sentiment-analysis
+experiments http://www.cs.cornell.edu/people/pabo/movie-review-data/
+
+\textbf{Music Recommendation:}
+
+Last.fm - Music Recommendation Data Sets
+http://www.dtic.upf.edu/\textasciitilde{}ocelma/MusicRecommendationDataset/index.html
+
+Yahoo! - Movie, Music, and Images Ratings Data Sets
+http://webscope.sandbox.yahoo.com/catalog.php?datatype=r
+
+Audioscrobbler - Music Recommendation Data Sets
+http://www-etud.iro.umontreal.ca/\textasciitilde{}bergstrj/audioscrobbler\_data.html
+
+Amazon - Audio CD recommendations http://131.193.40.52/data/
+
+\textbf{Books Recommendation:}
+
+Institut für Informatik, Universität Freiburg - Book Ratings Data Sets
+http://www.informatik.uni-freiburg.de/\textasciitilde{}cziegler/BX/ Food
+Recommendation:
+
+Chicago Entree - Food Ratings Data Sets
+http://archive.ics.uci.edu/ml/datasets/Entree+Chicago+Recommendation+Data
+Merchandise Recommendation:
+
+\textbf{Healthcare Recommendation:}
+
+Nursing Home - Provider Ratings Data Set
+http://data.medicare.gov/dataset/Nursing-Home-Compare-Provider-Ratings/mufm-vy8d
+
+Hospital Ratings - Survey of Patients Hospital Experiences
+http://data.medicare.gov/dataset/Survey-of-Patients-Hospital-Experiences-HCAHPS-/rj76-22dk
+
+\textbf{Dating Recommendation:}
+
+www.libimseti.cz - Dating website recommendation (collaborative
+filtering) http://www.occamslab.com/petricek/data/ Scholarly Paper
+Recommendation:
+
+National University of Singapore - Scholarly Paper Recommendation
+http://www.comp.nus.edu.sg/\textasciitilde{}sugiyama/SchPaperRecData.html
+
+\hypertarget{great-job}{%
+\section{Great Job!}\label{great-job}}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
